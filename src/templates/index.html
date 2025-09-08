@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>انتخاب محصول</title>
+    <style>
+        :root {
+            --bg: #fbfbfb;
+            --card: #ffffff;
+            --muted: #6b7280;
+            --disabled: #9ca3af;
+            --accent: #0f172a;
+            --radius: 12px;
+            --glass: rgba(255, 255, 255, 0.6);
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px;
+            color: var(--accent);
+        }
+
+        .container {
+            max-width: 700px;
+            width: 100%;
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: 0 6px 20px rgba(2, 6, 23, 0.08);
+            padding: 24px;
+        }
+
+        header {
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin: 0;
+        }
+
+        p.lead {
+            margin: 6px 0 0;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .section {
+            border: 1px solid #e5e7eb;
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-bottom: 20px;
+            background: var(--glass);
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .option-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .option-row:first-of-type {
+            border-top: none;
+        }
+
+        .info {
+            font-size: 14px;
+        }
+
+        .muted {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        input[type="radio"] {
+            margin-left: 8px;
+        }
+
+        /* ایمیل به سبک بخش‌ها */
+        .email-box input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+            /* اضافه شد */
+            direction: ltr;
+            /* ایمیل چپ‌چین */
+            text-align: right;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        footer {
+            margin-top: 24px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .clearBtn:disabled {
+            height: 40px;
+            display: block;
+            margin: 6px auto 0 auto;
+            border: none;
+            background: none;
+            cursor: default;
+            color: var(--disabled);
+            font-size: 14px;
+        }
+
+        .clearBtn:enabled {
+            font-weight: bold;
+            height: 40px;
+            display: block;
+            margin: 6px auto 0 auto;
+            border: none;
+            background: none;
+            color: var(--accent);
+            cursor: pointer;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>انتخاب محصول</h1>
+            <p class="lead">ایمیل خود را وارد کنید یا یک کاربر انتخاب کنید و سپس یک قیمت انتخاب کنید</p>
+        </header>
+
+        <!-- ایمیل -->
+        <div class="section email-box">
+            <div class="section-title">ایمیل</div>
+            <input type="email" id="email" placeholder="ایمیل خود را وارد کنید">
+            <button type="button" id="clear-email" class="clearBtn" disabled>پاک کردن ایمیل</button>
+        </div>
+
+        <!-- کاربران -->
+        <div class="section" id="customer-section">
+            <div class="section-title">انتخاب کاربر</div>
+            {% for customer in customers %}
+            <label class="option-row">
+                <div class="info">
+                    <div><strong>{{ customer.name }}</strong></div>
+                    <div class="muted">{{ customer.email }}</div>
+                </div>
+                <input type="radio" name="customer_email" value="{{ customer.email }}">
+            </label>
+            {% endfor %}
+        </div>
+
+        <!-- قیمت‌ها -->
+        <div class="section">
+            <div class="section-title">انتخاب قیمت</div>
+            {% for product in products %}
+            <div style="margin-bottom:12px;"><strong>{{ product.name }}</strong></div>
+            {% for price in product.prices %}
+            <label class="option-row">
+                <div class="info">
+                    <div><strong>{{ price.nickname or 'گزینه' }}</strong></div>
+                    <div class="muted">{{ price.unit_amount}} {{ price.currency|upper }}</div>
+                </div>
+                <input type="radio" name="price_id" value="{{ price.id }}">
+            </label>
+            {% endfor %}
+            {% endfor %}
+        </div>
+
+        <form id="checkout-form" method="post">
+            <button type="submit">پرداخت</button>
+        </form>
+
+        <footer>ساخته شده با ♥ — طراحی مینیمال</footer>
+
+
+        <script>
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const emailInput = document.getElementById('email');
+                const userSection = document.getElementById('customer-section');
+                const clearBtn = document.getElementById('clear-email');
+
+                function updateUserCheckboxes() {
+                    if (!userSection) return;
+                    const radios = userSection.querySelectorAll('input[name="customer_email"]');
+                    const disable = emailInput.value.trim().length > 0;
+                    radios.forEach(r => {
+                        r.disabled = disable;
+                        if (disable) {
+                            r.checked = false;
+                            r.style.color = "#cbd5e1"
+                        }
+                    });
+                }
+
+                function updateClearButton() {
+                    if (emailInput.value.trim().length > 0) {
+                        clearBtn.disabled = false;
+                    } else {
+                        clearBtn.disabled = true;
+                    }
+                }
+
+                emailInput.addEventListener('input', function () {
+                    updateUserCheckboxes();
+                    updateClearButton();
+                });
+
+                clearBtn.addEventListener('click', function () {
+                    if (emailInput.value.trim().length === 0) return; // غیرفعال
+                    emailInput.value = '';
+                    updateUserCheckboxes();
+                    updateClearButton();
+                });
+
+            });
+
+            const form = document.getElementById('checkout-form');
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const email = document.getElementById('email').value.trim();
+                const selectedUser = document.querySelector('input[name="customer_email"]:checked');
+                const selectedPrice = document.querySelector('input[name="price_id"]:checked');
+
+                if (!selectedPrice) {
+                    alert("لطفاً یک قیمت انتخاب کنید");
+                    return;
+                }
+
+                const params = new URLSearchParams();
+                if (selectedPrice) {
+                    params.append("price_id", selectedPrice.value);
+                }
+                if (email) {
+                    params.append("email", email);
+                } else if (selectedUser) {
+                    params.append("email", selectedUser.value);
+                }
+
+                form.action = "/api_v1/payment/create-checkout-session?" + params.toString();
+
+                form.submit();
+
+            });
+        </script>
+
+
+</body>
+
+</html>
