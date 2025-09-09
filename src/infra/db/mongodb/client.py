@@ -14,7 +14,7 @@ async def init_mongodb(
         host=host,
         port=port,
         username=user_name,
-        password=password
+        password=password,
     )
     
     await init_beanie(

@@ -3,7 +3,7 @@ from routes.api_v1.payment._router import router
 from routes.http_response.responses import ResponseMessage
 from usecases.get_object.get_customers import GetCustomers
 from usecases.get_object.get_products import GetProducts
-from infra.fastapi_config.app import templates
+from infra.fastapi_config.template_engine import templates
 
 @router.get(
     "/init-payment",
@@ -23,7 +23,7 @@ async def init_payment(request: Request):
         get_products_usecase = GetProducts()
         product = get_products_usecase.execute()
         
-        return templates.TemplateResponse("index.html", {"request": request, "products": product, "customers": customers})
+        return templates.TemplateResponse("init_payment.html", {"request": request, "products": product, "customers": customers})
     except Exception as ex:
         raise HTTPException(status_code=500, detail=str(ex))
     

@@ -4,7 +4,7 @@ from routes.http_response.responses import ResponseMessage
 from repo.interface.Isubscription import ISubscriptionRepo
 from routes.depends.subscription_repo_depend import get_subscription_repo
 from usecases.payment.success import SuccessPayment
-from infra.fastapi_config.app import templates
+from infra.fastapi_config.template_engine import templates
 
 @router.get(
     "/success",
