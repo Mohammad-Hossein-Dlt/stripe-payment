@@ -1,7 +1,6 @@
 from pymongo import AsyncMongoClient
 from beanie import init_beanie
-from infra.db.mongodb.models.subscriptions_model import SubscriptionsSession
-
+from infra.db.mongodb.session.subscriptions_session import SubscriptionsSession
 
 async def init_mongodb(
     host: str,

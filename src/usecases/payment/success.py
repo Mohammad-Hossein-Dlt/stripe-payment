@@ -7,7 +7,8 @@ class SuccessPayment:
     def __init__(
         self,
         sub_repo: ISubscriptionRepo,
-    ):    
+    ):
+        
         self.sub_repo = sub_repo
         
     async def execute(

@@ -2,8 +2,9 @@ import stripe
 
 class GetCustomers:
         
-    def execute(self) -> list:
-        
+    def execute(
+        self,
+    ) -> list:
         
         get_customers = stripe.Customer.list()
         

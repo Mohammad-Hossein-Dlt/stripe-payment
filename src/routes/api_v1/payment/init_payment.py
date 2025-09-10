@@ -14,7 +14,9 @@ from infra.fastapi_config.template_engine import templates
     },
     description="Initialize payment with assigning email and price of the product. If the email is not assigned here, it will be assigned on the payment page"
 )
-async def init_payment(request: Request):
+async def init_payment(
+    request: Request,
+):
     
     try:
         get_customers_usecase = GetCustomers()

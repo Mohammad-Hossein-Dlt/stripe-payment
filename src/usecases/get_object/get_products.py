@@ -2,7 +2,9 @@ import stripe
 
 class GetProducts:
         
-    def execute(self) -> list:
+    def execute(
+        self,
+    ) -> list:
         
         get_products = stripe.Product.list()
                 

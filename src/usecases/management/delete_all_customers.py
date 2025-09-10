@@ -2,7 +2,9 @@ import stripe
 
 class DeleteAllCustomers:
         
-    def execute(self) -> dict:
+    def execute(
+        self,
+    ) -> dict:
         
         customers = stripe.Customer.list()
         

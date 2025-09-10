@@ -6,9 +6,12 @@ class GetSavedSubscriptions:
         self,
         sub_repo: ISubscriptionRepo,
     ):    
+
         self.sub_repo = sub_repo
         
-    async def execute(self) -> list:
+    async def execute(
+        self,
+    ) -> list:
         
         subscriptions = await self.sub_repo.get_subscriptions()
                 

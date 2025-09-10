@@ -2,7 +2,6 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     STRIPE_API_KEY: str
-        
     MONGODB_HOST: str
     MONGODB_PORT: int
     MONGODB_USERNAME: str

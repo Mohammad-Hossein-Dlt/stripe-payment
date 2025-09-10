@@ -1,10 +1,13 @@
 from repo.interface.Isubscription import ISubscriptionRepo
 from domain.schemas.payment.subscription import Subscription
-from infra.db.mongodb.models.subscriptions_model import SubscriptionsSession
+from infra.db.mongodb.session.subscriptions_session import SubscriptionsSession
 
 class SubscriptionMongodbRepo(ISubscriptionRepo):
     
-    async def insert_subscription(self, subscription: Subscription) -> Subscription:
+    async def insert_subscription(
+        self,
+        subscription: Subscription,
+    ) -> Subscription:
                 
         existing_subscription = await self.get_subscription(subscription.sub_id)
         
@@ -16,11 +19,17 @@ class SubscriptionMongodbRepo(ISubscriptionRepo):
         
         return Subscription.model_validate(insert, from_attributes=True)
 
-    async def get_subscription(self, sub_id: str) -> Subscription:
+    async def get_subscription(
+        self,
+        sub_id: str,
+    ) -> Subscription:
+    
         subscription = await SubscriptionsSession.find_one({"sub_id": sub_id})
         return subscription
     
-    async def get_subscriptions(self) -> list[Subscription]:
+    async def get_subscriptions(
+        self,
+    ) -> list[Subscription]:
         
         subscriptions = await SubscriptionsSession.find_all().to_list()
         

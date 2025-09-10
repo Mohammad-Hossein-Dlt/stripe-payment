@@ -1,8 +1,4 @@
-from datetime import datetime
-from typing import List
 from beanie import Document
-
-
 
 class SubscriptionsSession(Document):
     sub_id: str
