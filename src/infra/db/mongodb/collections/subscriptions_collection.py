@@ -1,6 +1,6 @@
 from beanie import Document
 
-class SubscriptionsSession(Document):
+class SubscriptionsCollection(Document):
     sub_id: str
     customer_id: str
     customer_email: str
