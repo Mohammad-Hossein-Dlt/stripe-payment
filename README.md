@@ -5,17 +5,22 @@ Put it next to the src
 ```
 STRIPE_API_KEY = ""
 
-MONGODB_HOST = ""
-MONGODB_PORT = 12345 # it must be int
-MONGODB_USERNAME = ""
-MONGODB_PASSWORD = ""
+MONGO_HOST=mongo-db
+MONGO_PORT=27017
+MONGO_INITDB_ROOT_USERNAME=root
+MONGO_INITDB_ROOT_PASSWORD=rootpassword
+MONGO_INITDB_DATABASE=db
 ```
 
 To Run
 
 ```
-fastapi dev .\src\main.py
+fastapi dev app/src/main.py
 ```
+
+#### Note
+
+If you are running with Docker and have defined external ports for this app, please use the same ports for the `success_url` and `cancel_url` in the `CreateCheckoutSession` located in `app.src.usecases.payment.create_checkout_session.py`.
 
 ## App architecture description
 
@@ -38,14 +43,21 @@ In this layer, the application infrastructure is defined, such as:
 
 ```
 infra/
+│
+├── auth/
+│   └── <files or directories...>
+│
 ├── db/
 │   ├── redis/
+│   │   └── <files or directories...>
+│   │
+│   ├── mongodb/
 │   │   └── <files or directories...>
 │   │
 │   └── sqlite/
 │       └── <files or directories...>
 │
-├── exception/
+├── exceptions/
 │   └── <files...>
 │
 ├── external_api/
