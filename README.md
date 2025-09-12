@@ -28,18 +28,28 @@ If you are running with Docker and have defined external ports for this app, ple
 
 In this layer, the application infrastructure is defined, such as:
 
+- Authentication utilities such as token creation, management, and validation
+
+- Database client and its models (tables)
+
+- Errors related to this layer and other layers
+
+  - include status code and message
+
+- Services for interacting with external APIs
+
+  - include interfaces and their implementation
+
 - Fastapi config such as
+
   - middleware
   - tasks that should be run on startup or shutdown,
   - implement some states based on settings loaded from .env in main app to have access them throughout the entire project
+
+- Mixin classes
+
 - Application settings load from the `.env` file
   - load with pydantic_settings
-- Services for interacting with external APIs
-  - include interfaces and their implementation
-- Errors related to this layer and other layers
-  - include status code and message
-- Database and its models (tables)
-- Mixin classes
 
 ```
 infra/
