@@ -1,6 +1,12 @@
 import stripe
 
 class CreateCheckoutSession:
+    
+    def __init__(
+        self,
+        external_port: int,
+    ):
+        self.external_port = external_port
         
     def execute(
         self,
@@ -19,14 +25,8 @@ class CreateCheckoutSession:
             ],
             customer_email=customer_email,
             
-            success_url="http://localhost:8000/api_v1/payment/success?session_id={CHECKOUT_SESSION_ID}",
-            cancel_url="http://localhost:8000/api_v1/payment/cancel",
-            
-            # Use following code when you are running with Docker,
-            # and forwarding external port 80 to internal port 8000 or another internal port.
-            
-            # success_url="http://localhost/api_v1/payment/success?session_id={CHECKOUT_SESSION_ID}",
-            # cancel_url="http://localhost/api_v1/payment/cancel",
+            success_url=f"http://localhost:{self.external_port}/api_v1/payment/success?session_id={CHECKOUT_SESSION_ID}",
+            cancel_url=f"http://localhost:{self.external_port}/api_v1/payment/cancel",
         )
         
         return checkout.url

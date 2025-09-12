@@ -3,6 +3,9 @@ ENV File Parameters
 Put it next to the src
 
 ```
+EXTERANL_FASTAPI_PORT = 80
+INTERANL_FASTAPI_PORT = 8000
+
 STRIPE_API_KEY = ""
 
 MONGO_HOST=mongo-db
@@ -43,8 +46,8 @@ In this layer, the application infrastructure is defined, such as:
 - Fastapi config such as
 
   - middleware
-  - tasks that should be run on startup or shutdown such as create and close database client
-  - implement some states based on settings loaded from .env in main app to have access them throughout the entire project
+  - tasks that should be run on startup or shutdown, such as create and close database client
+  - implement some states based on settings loaded from .env in main app, to have access them throughout the entire project
 
 - Mixin classes
 
