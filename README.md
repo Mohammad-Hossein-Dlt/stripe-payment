@@ -83,15 +83,12 @@ In this layer, data models are defined that are only used inside the application
 
 ```
 domain/
+├── mock_data/
+│   └── <files...>
+│
 └── schemas/
-    ├── <schema_group_name>/
-    │   └── <files...>
-    │
-    ├── <schema_group_name>/
-    │   └── <files...>
-    │
     └── <schema_group_name>/
-        └── <files...>
+       └── <files...>
 ```
 
 ### Models Layer
@@ -100,15 +97,13 @@ In this layer, data models are defined that are only used for receiving or sendi
 
 ```
 models/
+├── filter/
+│   └── <files...>
+│
 └── schemas/
-    ├── <schema_group_name>/
-    │   └── <files...>
-    │
-    ├── <schema_group_name>/
-    │   └── <files...>
-    │
     └── <schema_group_name>/
         └── <files...>
+
 ```
 
 ### Repo Layer
@@ -122,6 +117,7 @@ Interfaces define the structure of database communication, so we can have multip
 repo/
 ├── interface/
 │   └── <files...>
+│
 └── <implementation_name>/
     └── <files...>
 ```
@@ -134,8 +130,10 @@ Naming implementations can be based on:
 repo/
 ├── interface/
 │   └── <files...>
+│
 ├── sql/
 │   └── <files...>
+│
 └── nosql/
     └── <files...>
 ```
@@ -146,8 +144,10 @@ repo/
 repo/
 ├── interface/
 │   └── <files...>
+│
 ├── postgresql/
 │   └── <files...>
+│
 └── mongodb/
     └── <files...>
 ```
@@ -183,9 +183,6 @@ One of the implementen logics is the token refresh mechanism.
 
 ```
 usecase/
-├── <usecase_group_name>/
-│   └── <files...>
-│
 ├── <usecase_group_name>/
 │   └── <files...>
 │
