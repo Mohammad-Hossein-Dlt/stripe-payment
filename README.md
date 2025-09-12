@@ -43,7 +43,7 @@ In this layer, the application infrastructure is defined, such as:
 - Fastapi config such as
 
   - middleware
-  - tasks that should be run on startup or shutdown,
+  - tasks that should be run on startup or shutdown such as create and close database client
   - implement some states based on settings loaded from .env in main app to have access them throughout the entire project
 
 - Mixin classes
