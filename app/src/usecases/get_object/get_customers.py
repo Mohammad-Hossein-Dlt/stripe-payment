@@ -10,13 +10,13 @@ class GetCustomers:
         
         customers: list = []
 
-        for customer in get_customers.data:
+        for customer_object in get_customers.data:
             
             customers.append(
                 {
-                    "id": customer.id, 
-                    "email": customer.email,
-                    "name": customer.name,
+                    "id": customer_object.id, 
+                    "email": customer_object.email,
+                    "name": customer_object.name,
                 },
             )
    

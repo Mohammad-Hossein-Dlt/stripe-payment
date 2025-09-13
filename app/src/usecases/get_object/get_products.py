@@ -8,33 +8,33 @@ class GetProducts:
         
         get_products = stripe.Product.list()
                 
-        out_put: list = []
+        products: list = []
 
-        for product in get_products.data:
+        for product_object in get_products.data:
             
-            get_prices = stripe.Price.list(product=product.id)
+            get_prices = stripe.Price.list(product=product_object.id)
             
             prices = []
             
-            for price in get_prices.data:
+            for price_object in get_prices.data:
                 prices.append(
                     {
-                        "id": price.id,
-                        "nickname": price.nickname,
-                        "currency": price.currency,
-                        "unit_amount": price.unit_amount // 100 if price.currency == "usd" else price.unit_amount,
-                        "product": price.product,
-                        "active": price.active,
+                        "id": price_object.id,
+                        "nickname": price_object.nickname,
+                        "currency": price_object.currency,
+                        "unit_amount": price_object.unit_amount // 100 if price_object.currency == "usd" else price_object.unit_amount,
+                        "product": price_object.product,
+                        "active": price_object.active,
                     }
                 )
                 
-            out_put.append(
+            products.append(
                 {
-                    "id": product.id, 
-                    "name": product.name,
-                    "active": product.active,
+                    "id": product_object.id, 
+                    "name": product_object.name,
+                    "active": product_object.active,
                     "prices": prices,
                 },
             )
                 
-        return out_put
+        return products

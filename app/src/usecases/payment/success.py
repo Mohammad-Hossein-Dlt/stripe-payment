@@ -14,7 +14,7 @@ class SuccessPayment:
     async def execute(
         self,
         session_id: str,
-    ) -> dict:
+    ) -> SubscriptionModel:
         
         new_customer = stripe.checkout.Session.retrieve(
             id=session_id,
@@ -29,5 +29,5 @@ class SuccessPayment:
                 
         inserted_subscription: SubscriptionModel = await self.sub_repo.insert_subscription(subscription)
                 
-        return inserted_subscription.model_dump(mode="json")
+        return inserted_subscription.model_dump(mode="json") if inserted_subscription else None
     

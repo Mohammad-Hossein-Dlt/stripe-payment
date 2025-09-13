@@ -6,14 +6,14 @@ class ISubscriptionRepo(ABC):
     @abstractmethod
     async def insert_subscription(
         subscription: SubscriptionModel,
-    ) -> SubscriptionModel:
+    ) -> SubscriptionModel | None:
     
         raise NotImplementedError
     
     @abstractmethod
     async def get_subscription(
         sub_id: str,
-    ) -> SubscriptionModel:
+    ) -> SubscriptionModel | None:
     
         raise NotImplementedError
     
