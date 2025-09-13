@@ -27,7 +27,7 @@ class SuccessPayment:
             customer_name=new_customer["customer_details"]["name"],
         )
                 
-        inserted_subscription = await self.sub_repo.insert_subscription(subscription)
+        inserted_subscription: SubscriptionModel = await self.sub_repo.insert_subscription(subscription)
                 
-        return inserted_subscription.model_dump()
+        return inserted_subscription.model_dump(mode="json")
     

@@ -1,4 +1,5 @@
 from app.src.repo.interface.Isubscription import ISubscriptionRepo
+from app.src.domain.schemas.payment.subscription import SubscriptionModel
 
 class GetSavedSubscriptions:
     
@@ -13,6 +14,6 @@ class GetSavedSubscriptions:
         self,
     ) -> list:
         
-        subscriptions = await self.sub_repo.get_subscriptions()
+        subscriptions: list[SubscriptionModel] = await self.sub_repo.get_subscriptions()
                 
-        return subscriptions
+        return [ sub.model_dump(mode="json") for sub in subscriptions ]

@@ -1,3 +1,9 @@
+import os
 from fastapi.templating import Jinja2Templates
 
-templates = Jinja2Templates(directory="./src/templates")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+if "/app" in BASE_DIR:
+    templates = Jinja2Templates(directory="./src/templates")
+else:
+    templates = Jinja2Templates(directory="./app/src/templates")

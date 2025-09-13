@@ -11,7 +11,6 @@ class DeleteAllCustomers:
         for customer in customers.data:
             stripe.Customer.delete(customer.id)
             
-        
         out_put: dict = {
             "request": "customers/delete_all",
             "status": True,

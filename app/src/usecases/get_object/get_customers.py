@@ -19,6 +19,5 @@ class GetCustomers:
                     "name": customer.name,
                 },
             )
-
-                
+   
         return customers
