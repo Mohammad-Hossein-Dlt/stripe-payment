@@ -1,6 +1,6 @@
 ENV File Parameters
 
-Put it next to the src
+Put it next to the app
 
 ```
 EXTERNAL_FASTAPI_PORT = 80
@@ -20,10 +20,6 @@ To Run
 ```
 fastapi dev app/src/main.py
 ```
-
-#### Note
-
-If you are running with Docker and have defined external ports for this app, please use the same ports for the `success_url` and `cancel_url` in the `CreateCheckoutSession` located in `app.src.usecases.payment.create_checkout_session.py`.
 
 ## App architecture description
 
