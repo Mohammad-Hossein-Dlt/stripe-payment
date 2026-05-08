@@ -1,6 +1,12 @@
 from fastapi import FastAPI
-from app.src.infra.fastapi_config.app_lifespan import lifespan
+from fastapi_swagger import patch_fastapi
+from .app_lifespan import lifespan
 
 app: FastAPI = FastAPI(
+    root_path="/stripe",
     lifespan=lifespan,
+    docs_url=None,
+    swagger_ui_oauth2_redirect_url=None,
 )
+
+patch_fastapi(app, docs_url="")

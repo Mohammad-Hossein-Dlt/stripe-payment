@@ -1,10 +1,10 @@
 from ._router import router
-from fastapi import Request, Depends, HTTPException
-from app.src.routes.http_response.responses import ResponseMessage
-from app.src.repo.interface.Isubscription import ISubscriptionRepo
-from app.src.routes.depends.subscription_repo_depend import get_subscription_repo
-from app.src.usecases.payment.success import SuccessPayment
-from app.src.infra.fastapi_config.template_engine import templates
+from fastapi import Request, Query, Depends, HTTPException
+from src.routes.http_response.responses import ResponseMessage
+from src.repo.interface.Isubscription import ISubscriptionRepo
+from src.routes.depends.repo_depend import subscription_depend
+from src.usecases.payment.success import SuccessPayment
+from src.infra.fastapi_config.template_engine import templates
 
 @router.get(
     "/success",
@@ -17,8 +17,8 @@ from app.src.infra.fastapi_config.template_engine import templates
 )
 async def success_payment(
     request: Request,
-    session_id: str = None,
-    sub_repo: ISubscriptionRepo = Depends(get_subscription_repo),
+    session_id: str = Query(None),
+    sub_repo: ISubscriptionRepo = Depends(subscription_depend),
 ):
     try:
         success_payment_usecase = SuccessPayment(sub_repo)

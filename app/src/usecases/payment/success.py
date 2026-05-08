@@ -1,6 +1,6 @@
 import stripe
-from app.src.domain.schemas.payment.subscription import SubscriptionModel
-from app.src.repo.interface.Isubscription import ISubscriptionRepo
+from src.domain.schemas.payment.subscription import SubscriptionModel
+from src.repo.interface.Isubscription import ISubscriptionRepo
 
 class SuccessPayment:
 
@@ -27,7 +27,7 @@ class SuccessPayment:
             customer_name=new_customer["customer_details"]["name"],
         )
                 
-        inserted_subscription: SubscriptionModel = await self.sub_repo.insert_subscription(subscription)
+        inserted_subscription: SubscriptionModel = await self.sub_repo.create(subscription)
                 
         return inserted_subscription.model_dump(mode="json") if inserted_subscription else None
     

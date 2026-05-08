@@ -1,9 +1,9 @@
 from ._router import router
 from fastapi import Request, HTTPException
-from app.src.routes.http_response.responses import ResponseMessage
-from app.src.usecases.get_object.get_customers import GetCustomers
-from app.src.usecases.get_object.get_products import GetProducts
-from app.src.infra.fastapi_config.template_engine import templates
+from src.routes.http_response.responses import ResponseMessage
+from src.usecases.customer.get_all import GetCustomers
+from src.usecases.product.get_all import GetProducts
+from src.infra.fastapi_config.template_engine import templates
 
 @router.get(
     "/init-payment",
